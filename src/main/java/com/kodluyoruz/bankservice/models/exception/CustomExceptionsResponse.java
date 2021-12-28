@@ -4,7 +4,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @Data
-public abstract class CustomExceptionsResponse extends RuntimeException implements CustomCreateResponseDto {
+public abstract class CustomExceptionsResponse extends RuntimeException implements CustomCreateResponse {
     private String messageToFront;
     private String causeToFront;
 
