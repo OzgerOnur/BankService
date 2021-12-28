@@ -1,10 +1,10 @@
 package com.kodluyoruz.bankservice.models.exception.type;
 
-import com.kodluyoruz.bankservice.models.exception.CustomExceptionsCustomCreateResponse;
+import com.kodluyoruz.bankservice.models.exception.CustomExceptionsResponse;
 
 
 
-public class NotFoundRequestId extends CustomExceptionsCustomCreateResponse {
+public class NotFoundRequestId extends CustomExceptionsResponse {
 
     public NotFoundRequestId(){
         super("Id Not Found","Id Not Found");

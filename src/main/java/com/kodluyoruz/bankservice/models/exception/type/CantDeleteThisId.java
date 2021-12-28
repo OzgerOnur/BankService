@@ -1,11 +1,9 @@
 package com.kodluyoruz.bankservice.models.exception.type;
 
-import com.kodluyoruz.bankservice.models.exception.CustomExceptionResponseDto;
-import com.kodluyoruz.bankservice.models.exception.CustomExceptionsCustomCreateResponse;
-import com.kodluyoruz.bankservice.models.exception.CustomCreateResponseDto;
+import com.kodluyoruz.bankservice.models.exception.CustomExceptionsResponse;
 
 
-public class CantDeleteThisId extends CustomExceptionsCustomCreateResponse  {
+public class CantDeleteThisId extends CustomExceptionsResponse {
 
     public CantDeleteThisId() {
         super("The id cant be deleted", "the id have not existed or being secured by others");

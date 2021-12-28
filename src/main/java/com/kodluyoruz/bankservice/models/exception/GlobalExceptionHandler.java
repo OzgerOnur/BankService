@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CustomExceptionsCustomCreateResponse.class)
-    public ResponseEntity<CustomExceptionResponseDto> writtenException(CustomExceptionsCustomCreateResponse customExceptionsResponse) {
+    @ExceptionHandler(CustomExceptionsResponse.class)
+    public ResponseEntity<CustomExceptionResponseDto> writtenException(CustomExceptionsResponse customExceptionsResponse) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(customExceptionsResponse.getExceptionDto());
     }
