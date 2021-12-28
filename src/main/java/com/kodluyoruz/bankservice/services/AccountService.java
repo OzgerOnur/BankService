@@ -4,6 +4,8 @@ package com.kodluyoruz.bankservice.services;
 import com.kodluyoruz.bankservice.models.dto.AccountDto;
 import com.kodluyoruz.bankservice.models.dto.CustomerDto;
 import com.kodluyoruz.bankservice.models.entity.Account;
+import com.kodluyoruz.bankservice.models.exception.type.CantDeleteThisId;
+import com.kodluyoruz.bankservice.models.exception.type.NotFoundRequestId;
 import com.kodluyoruz.bankservice.models.request.account.CreateAccountRequest;
 import com.kodluyoruz.bankservice.models.request.account.UpdateAccountRequest;
 import com.kodluyoruz.bankservice.repositories.AccountRepository;
@@ -33,7 +35,7 @@ public class AccountService {
     }
 
     private Account getAccountBtId(int id) {
-        return accountRepository.findById(id).orElseThrow(()->new NotFoundException("Account cannot be found"));
+        return accountRepository.findById(id).orElseThrow(()->new NotFoundRequestId("Account cannot be found"));
     }
 
     public AccountDto withdrawMoney(int id,int money){
@@ -55,7 +57,12 @@ public class AccountService {
     }
 
     public void deleteAccount(int id){
-        accountRepository.deleteById(id);
+        try {
+            accountRepository.deleteById(id);
+        }
+        catch (RuntimeException runtimeException){
+            throw new CantDeleteThisId();
+        }
     }
 
     public AccountDto getAccount(int id){

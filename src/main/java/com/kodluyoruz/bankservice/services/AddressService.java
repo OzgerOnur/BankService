@@ -3,6 +3,8 @@ package com.kodluyoruz.bankservice.services;
 
 import com.kodluyoruz.bankservice.models.dto.AddressDto;
 import com.kodluyoruz.bankservice.models.entity.Address;
+import com.kodluyoruz.bankservice.models.exception.type.CantDeleteThisId;
+import com.kodluyoruz.bankservice.models.exception.type.NotFoundRequestId;
 import com.kodluyoruz.bankservice.models.request.address.UpdateCreateAddressRequest;
 import com.kodluyoruz.bankservice.repositories.AddressRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +34,17 @@ public class AddressService {
     }
 
     private Address getAddressById(int id) {
-        return addressRepository.findById(id).orElseThrow(()->new NotFoundException("Address cannot be found"));
+        return addressRepository.findById(id).orElseThrow(()->new NotFoundRequestId("Address cannot be found"));
     }
 
     public void deleteAddress(int id){
-        addressRepository.deleteById(id);
+        try {
+            addressRepository.deleteById(id);
+        }
+        catch (RuntimeException runtimeException){
+            throw new CantDeleteThisId();
+        }
+
     }
+
 }

@@ -3,12 +3,13 @@ package com.kodluyoruz.bankservice.services;
 
 import com.kodluyoruz.bankservice.models.dto.CustomerDto;
 import com.kodluyoruz.bankservice.models.entity.Customer;
+import com.kodluyoruz.bankservice.models.exception.type.CantDeleteThisId;
+import com.kodluyoruz.bankservice.models.exception.type.NotFoundRequestId;
 import com.kodluyoruz.bankservice.models.request.customer.CreateCustomerRequest;
 import com.kodluyoruz.bankservice.models.request.customer.UpdateCustomerRequest;
 import com.kodluyoruz.bankservice.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class CustomerService {
     }
 
     private Customer getCustomerById(int id){
-        return customerRepository.findById(id).orElseThrow(()->new NotFoundException("Customer cannot be found"));
+        return customerRepository.findById(id).orElseThrow(()->new NotFoundRequestId("Customer cannot be found"));
     }
 
     public CustomerDto getCustomer(int id){
@@ -39,6 +40,11 @@ public class CustomerService {
     }
 
     public void deleteCustomer(int id){
-        customerRepository.deleteById(id);
+        try {
+            customerRepository.deleteById(id);
+        }
+        catch (RuntimeException runtimeException){
+            throw new CantDeleteThisId();
+        }
     }
 }

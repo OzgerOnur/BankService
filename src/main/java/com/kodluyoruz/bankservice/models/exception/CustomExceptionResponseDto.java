@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 @Builder
-public class ExceptionResponseDto {
+public class CustomExceptionResponseDto {
     private String message;
     private String cause;
 
